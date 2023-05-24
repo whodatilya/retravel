@@ -1,7 +1,7 @@
 <template>
-  <q-layout id="app">
+  <div id="app" class="full-height">
     <router-view />
-  </q-layout>
+  </div>
 </template>
 
 <script>

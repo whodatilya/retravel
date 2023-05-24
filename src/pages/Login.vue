@@ -33,8 +33,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-$primary-color: #B2EBF2
-$primary-color-dark: #81B9BF
+$primary-color: #0069C0
+$primary-color-dark: #6EC6FF
 $text-color: #333
 $font-size: 1.2rem
 $font-weight-normal: 500
@@ -44,17 +44,17 @@ $border-radius: 0.5rem
 
 .login-page
   display: flex
+  background: #EEFFFF
   justify-content: center
   align-items: center
   height: 100vh
 
 .login-form
-  transition: all 1s ease-in
   display: flex
   flex-direction: column
   align-items: center
   padding: 2rem
-  border: 1px solid $border-color
+  border: 1px solid transparent
   border-radius: $border-radius
   &__title
     margin-bottom: 1.5rem
@@ -75,7 +75,6 @@ $border-radius: 0.5rem
     border-bottom: 1px solid $border-color
     font-size: $font-size
     font-weight: $font-weight-normal
-    width: 100%
   &__submit-button
     padding: 0.5rem 1rem
     border: none
@@ -88,5 +87,6 @@ $border-radius: 0.5rem
     transition: all 0.2s ease-in-out
   &:hover
     background-color: $primary-color-dark
-    transition: all 1s ease-in-out
+    transition: all 0.4s ease-in-out
+    color: white
 </style>

@@ -1,3 +1,60 @@
 @import './quasar.variables.sass'
 //@import '~quasar-styl'
 // @import '~quasar-addon-styl'
+
+.layout
+  display: flex
+  flex-direction: row
+  height: 100vh
+  justify-content: space-between
+.menu
+  padding: 36px 36px 0 8%
+  max-width: 200px
+  &__logo
+    padding-bottom: 8%
+  &__item
+    border-radius: 10px
+    padding: 16px 16px
+    display: flex
+    align-items: center
+    font-family: 'Lato', system-ui
+    font-style: normal
+    color: #7D7D7D
+    font-weight: 600
+    letter-spacing: 0.01em
+    font-size: 18px
+    line-height: 22px
+    margin-bottom: 10px
+    &:hover
+      cursor: pointer
+    &-image
+      margin-right: 16px
+      &-active
+        filter: brightness(0) invert(1)
+    &-active
+      color: #FFFFFF
+      background: #4E944F
+  &__exit
+    position: absolute
+    bottom: 72px
+    width: 200px
+    border: 1px solid transparent
+    &:hover
+      border: 1px solid #4E944F
+.content
+  margin: 36px 0
+  border-radius: 10px
+  max-width: 41%
+  width: 100%
+  background: #DAE8DA
+  box-shadow: 0 5px 10px #aab3aa
+  &__inner
+    padding: 28px 34px
+.preferences
+  max-width: 340px
+  width: 22%
+  margin: 36px 36px 36px 0
+.quit
+  position: fixed
+  top: 0
+  left: 0
