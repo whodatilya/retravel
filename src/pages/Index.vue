@@ -88,7 +88,7 @@ export default {
                   componentName: 'Favourite'
               }
           ],
-          selectedPage: 'Main'
+          selectedPage: 'Chat'
       }
     },
     methods: {

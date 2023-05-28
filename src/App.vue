@@ -11,4 +11,6 @@ export default {
 }
 </script>
 <style scoped lang="sass">
+*
+  box-sizing: unset !important
 </style>
