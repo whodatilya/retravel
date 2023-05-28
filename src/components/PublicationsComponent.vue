@@ -33,6 +33,7 @@
 <script>
 import ComponentHeader from "@/components/ComponentHeader.vue";
 import iconLandscape from '@/assets/images/iconLandscape.svg'
+import {getAllPosts} from "@/store/posts/actions";
 
 export default {
   name: "PublicationsComponent",
@@ -46,28 +47,27 @@ export default {
       text: '',
       place: '',
       images: '',
-      publicationsList: [
-        {
-          name: 'Пошёл за гаражи',
-          location: 'Гаражи'
-        },
-        {
-          name: 'Путешествие в самое сердце Волжанки',
-          location: 'Ульяновск'
-        },
-        {
-          name: 'День группы',
-          location: 'Четаева, д. 4'
-        }
-      ]
+      publicationsList: null
     }
   },
-  methods: {
+    created() {
+        this.processPublications()
+    },
+    methods: {
+      async processPublications() {
+          this.publicationsList = await this.$store.dispatch('posts/getAllPosts')
+      },
     createNewPublication () {
-      this.publicationsList.push({
-        name: this.title,
-        location: this.place
-      })
+        this.$store.dispatch('posts/createNewPost', {
+            postData: {
+                header: this.title,
+                text: this.text,
+                location: this.place
+            }
+        })
+            .then(response => {
+                this.processPublications()
+            })
       this.title = ''
       this.text = ''
       this.place = ''

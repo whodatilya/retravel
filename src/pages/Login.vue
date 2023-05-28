@@ -1,34 +1,49 @@
 <template>
-  <q-layout class="login-page">
-    <form class="login-form">
-      <h2 v-if="isRegistration" class="login-form__title">Регистрация</h2>
-      <h2 v-else class="login-form__title">Вход в аккаунт</h2>
+  <div class="login-page">
+    <div class="login-form">
+      <h2 class="login-form__title">Вход в аккаунт</h2>
       <div class="login-form__field">
         <label class="login-form__label" for="email">Email</label>
-        <input class="login-form__input" type="email" id="email" name="email" required>
+        <input v-model="email" class="login-form__input" type="email" id="email" name="email" required>
       </div>
       <div class="login-form__field">
         <label class="login-form__label" for="password">Пароль</label>
-        <input class="login-form__input" type="password" id="password" name="password" required>
+        <input v-model="password" class="login-form__input" type="password" id="password" name="password" required>
       </div>
-      <div v-if="isRegistration" class="login-form__field">
-        <label class="login-form__label" for="password">Повторите пароль</label>
-        <input class="login-form__input" type="password" id="repassword" name="repassword" required>
-      </div>
-      <button class="login-form__submit-button" type="submit">Войти</button>
-    </form>
-  </q-layout>
+      <button @click="login" class="login-form__submit-button" type="submit">Войти</button>
+        <div style="padding-top: 20px">
+          <span>
+              Ещё не зарегистировались? <a href="/signUp">Зарегистрироваться</a>
+          </span>
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "LoginPage",
-  props: {
-    isRegistration: {
-      default: false,
-      require: true
+  data () {
+    return {
+        email: '',
+        password: ''
     }
-  }
+  },
+    methods: {
+      async login() {
+          await this.$store.dispatch('user/login', {
+              login: this.email,
+              password: this.password
+          })
+              .then(response => {
+                  this.$router.push({path: '/'})
+              })
+              .catch(e => {
+                  alert(`Не получается авторизироваться из-за ошибки - ${e}`)
+              })
+      },
+
+    }
 }
 </script>
 
