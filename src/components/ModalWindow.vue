@@ -59,7 +59,7 @@ export default {
 .button
     padding: 5px
     cursor: pointer
-    border: 1px solid #4E944F
+    border: 1px solid $green
     border-radius: 10px
     &__exit
         border: none

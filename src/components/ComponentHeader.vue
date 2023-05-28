@@ -28,6 +28,7 @@ export default {
   padding-bottom: 35px
 .round-input
   border-radius: 100px
+  padding-left: 20px
   width: 60%
   outline: none
   border: none

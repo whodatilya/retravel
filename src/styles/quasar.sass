@@ -33,19 +33,21 @@
         filter: brightness(0) invert(1)
     &-active
       color: #FFFFFF
-      background: #4E944F
+      background: $green
   &__exit
     position: absolute
     bottom: 72px
     width: 200px
     border: 1px solid transparent
     &:hover
-      border: 1px solid #4E944F
+      border: 1px solid $green
 .content
   margin: 36px 0
   border-radius: 10px
   max-width: 41%
   width: 100%
+  height: fit-content
+  min-height: 90%
   background: #DAE8DA
   box-shadow: 0 5px 10px #aab3aa
   &__inner

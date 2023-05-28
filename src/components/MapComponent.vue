@@ -1,12 +1,15 @@
 <template>
-    <div>
-        Map
+    <div class="map">
+      <component-header/>
     </div>
 </template>
 
 <script>
+import ComponentHeader from '@/components/ComponentHeader.vue';
+
 export default {
-    name: "MapComponent"
+    name: "MapComponent",
+  components: {ComponentHeader}
 }
 </script>
 
