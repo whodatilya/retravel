@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <input class="round-input" type="text"/>
+    <input v-model="searchText" @change="$emit('searchText', searchText)" class="round-input" type="text"/>
     <div class="notifications">
       <img :src="iconNotifications" alt="">
     </div>
@@ -13,7 +13,8 @@ export default {
   name: 'ComponentHeader',
   data () {
     return {
-      iconNotifications
+      iconNotifications,
+        searchText: ''
     }
   }
 }

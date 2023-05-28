@@ -12,7 +12,8 @@ export default {
             url: `${BASE_URL}/api/posts/new_post`,
             data: postData,
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'multipart/form-data'
             }
         })
             .catch(e => {

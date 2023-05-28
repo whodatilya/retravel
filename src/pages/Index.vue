@@ -32,7 +32,35 @@
             :is="selectedPage + 'Component'"
           />
       </div>
-      <div class="preferences"></div>
+      <div class="preferences">
+          <div class="row" style="align-items: center">
+              <div style="
+              display: flex;
+              width: 50px;
+              height: 50px;
+              border: 1px solid transparent;
+              background: #DAE8DA;
+              border-radius: 100%;
+              align-items: center;
+              justify-content: center"
+              >
+                  <img :src="iconUser" alt="">
+              </div>
+              <div style="padding-left: 10px">Имя Фамилия</div>
+          </div>
+          <div>
+              <div class="text-my-bold" style="padding-bottom: 20px">Сохранённые публикации</div>
+              <div class="row" v-for="item in 8" style="margin-bottom: 10px; padding: 4px; border-radius: 10px;border: 1px solid #EDEDED">
+                  <div style="padding: 10px; background: #EDEDED; border-radius: 10px; margin-right: 10px">
+                      <img :src="iconLandscape" alt="">
+                  </div>
+                  <div class="column">
+                      <div class="text-my-bold">Наименование</div>
+                      <div class="text-my-lightgray">Локация</div>
+                  </div>
+              </div>
+          </div>
+      </div>
       <modal-window :open="isOpen" @onCloseModal="processQuit" @onExit="quit"/>
   </div>
 </template>
@@ -45,7 +73,9 @@ import ChatComponent from '@/components/ChatComponent.vue';
 import FavouriteComponent from '@/components/FavouriteComponent.vue';
 import retravelLogo from '@/assets/images/retravelLogo.svg'
 import iconExit from '@/assets/images/iconExit.svg'
+import iconLandscape from '@/assets/images/iconLandscape.svg'
 import ModalWindow from "@/components/ModalWindow.vue";
+import iconUser from '@/assets/images/iconUser.svg'
 export default {
   name: "IndexPage",
     components: {
@@ -60,6 +90,8 @@ export default {
       return {
           retravelLogo,
           iconExit,
+          iconUser,
+          iconLandscape,
           isOpen: false,
           menuItems: [
               {
@@ -99,8 +131,7 @@ export default {
             this.isOpen = !this.isOpen
         },
         quit () {
-            console.log('вышел')
-          // this.$store.dispatch('user/logout')
+          this.$store.dispatch('user/logout')
         }
     }
 }

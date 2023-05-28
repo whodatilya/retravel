@@ -8,7 +8,7 @@
           <textarea v-model="text" class="create-item item-input textarea-size" placeholder="Текст..."/>
           <div class="create-item row justify-between">
             <input v-model="place" class="column create-item item-input item-input_half" placeholder="Местоположение">
-            <input v-model="images" class="column create-item item-input item-input_half" placeholder="Изображения">
+            <input ref="myFiles" id="uploadFile" type="file" @change=processFile class="column create-item item-input_half">
           </div>
           <div class="flex justify-end">
             <button @click="createNewPublication" class="create-item item-button">Опубликовать</button>
@@ -17,9 +17,9 @@
       </div>
       <div class="publications__local">
         <div class="text-my-bold publications__local-text-position">Мои публикации</div>
-        <div v-for="item in publicationsList" class="content__item row items-center">
+        <div v-for="(item, index) in publicationsList" :key="index" class="content__item row items-center">
           <div class="content__image flex wrap justify-center" style="">
-            <img :src="iconLandscape" alt="">
+            <img style="max-width: 50px; max-height: 50px" :src="item.file_path || iconLandscape" alt="">
           </div>
           <div class="column" style="padding-left: 10px">
             <div class="text-my-bold">{{ item.name }}</div>
@@ -47,6 +47,7 @@ export default {
       text: '',
       place: '',
       images: '',
+      files: [],
       publicationsList: null
     }
   },
@@ -57,17 +58,25 @@ export default {
       async processPublications() {
           this.publicationsList = await this.$store.dispatch('posts/getAllPosts')
       },
+        processFile () {
+            this.files = this.$refs.myFiles.files[0]
+        },
     createNewPublication () {
+        const formData = new FormData()
+        const loadedFile = document.querySelector('#uploadFile')
+
+        formData.append('header', this.title)
+        formData.append('text', this.text)
+        formData.append('location', this.place)
+        formData.append('image', loadedFile.files[0])
+
         this.$store.dispatch('posts/createNewPost', {
-            postData: {
-                header: this.title,
-                text: this.text,
-                location: this.place
-            }
+            postData: formData
         })
             .then(response => {
                 this.processPublications()
             })
+
       this.title = ''
       this.text = ''
       this.place = ''

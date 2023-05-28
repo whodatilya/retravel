@@ -11,3 +11,7 @@ export async function login ({ dispatch, commit }, { login, password }) {
     commit('SAVE_TOKEN', { token: response.data.token })
   }
 }
+export async function logout ({ dispatch, commit }) {
+  localStorage.removeItem('token')
+  location.reload()
+}
