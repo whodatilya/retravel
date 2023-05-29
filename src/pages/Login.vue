@@ -4,7 +4,7 @@
       <h2 class="login-form__title">Вход в аккаунт</h2>
       <div class="login-form__field">
         <label class="login-form__label" for="email">Email</label>
-        <input v-model="email" class="login-form__input" type="email" id="email" name="email" required>
+        <input v-model="email" class="login-form__input" type="email" id="email" autocomplete="false" name="email" required>
       </div>
       <div class="login-form__field">
         <label class="login-form__label" for="password">Пароль</label>
@@ -48,8 +48,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-$primary-color: #0069C0
-$primary-color-dark: #6EC6FF
+$primary-color: #5fb760
+$primary-color-dark: #428442
 $text-color: #333
 $font-size: 1.2rem
 $font-weight-normal: 500

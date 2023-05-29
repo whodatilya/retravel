@@ -120,7 +120,7 @@ export default {
                   componentName: 'Favourite'
               }
           ],
-          selectedPage: 'Publications'
+          selectedPage: 'Main'
       }
     },
     methods: {

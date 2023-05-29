@@ -17,12 +17,15 @@
       </div>
       <div class="publications__local">
         <div class="text-my-bold publications__local-text-position">Мои публикации</div>
-        <div v-for="(item, index) in publicationsList" :key="index" class="content__item row items-center">
+        <div v-for="(item, index) in publicationsList" :key="index" class="content__item row items-center" @click="openModal">
+            <div v-if="isOpen">
+                <modal-publication :item="item" @onExitClick="openModal"/>
+            </div>
           <div class="content__image flex wrap justify-center" style="">
             <img style="max-width: 50px; max-height: 50px" :src="item.file_path || iconLandscape" alt="">
           </div>
           <div class="column" style="padding-left: 10px">
-            <div class="text-my-bold">{{ item.name }}</div>
+            <div class="text-my-bold">{{ item.header }}</div>
             <div class="text-my-lightgray">{{ item.location }}</div>
           </div>
         </div>
@@ -34,10 +37,12 @@
 import ComponentHeader from "@/components/ComponentHeader.vue";
 import iconLandscape from '@/assets/images/iconLandscape.svg'
 import {getAllPosts} from "@/store/posts/actions";
+import ModalPublication from "@/components/ModalPublication.vue";
 
 export default {
   name: "PublicationsComponent",
   components: {
+      ModalPublication,
     ComponentHeader
   },
   data () {
@@ -45,6 +50,7 @@ export default {
       iconLandscape,
       title: '',
       text: '',
+      isOpen: false,
       place: '',
       images: '',
       files: [],
@@ -55,6 +61,9 @@ export default {
         this.processPublications()
     },
     methods: {
+      openModal () {
+        this.isOpen = !this.isOpen
+      },
       async processPublications() {
           this.publicationsList = await this.$store.dispatch('posts/getAllPosts')
       },
