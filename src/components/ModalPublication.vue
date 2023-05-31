@@ -1,17 +1,15 @@
 <template>
-    <div class="modal">
-        <div class="column modal__inner">
-            <div class="row">
-                <div>
-                    <img style="width: 300px" :src="item.file_path || iconLandScape" alt=""/>
-                </div>
-                <div class="column">
-                    <div class="text-my-bold">{{ item.header }}</div>
-                    <div class="text-my-lightgray">{{ item.text }}</div>
-                </div>
+    <div class="column inner">
+        <div class="row">
+            <div>
+                <img class="image-size" :src="item.file_path || iconLandScape" alt=""/>
             </div>
-            <div @click="exitClick">Выйти</div>
+            <div class="column justify-center" style="padding-left: 30px">
+                <div class="text-my-bold">{{ item.header }}</div>
+                <div class="text-my-lightgray">{{ item.text }}</div>
+            </div>
         </div>
+        <button @click="exitClick">Выйти</button>
     </div>
 </template>
 
@@ -38,22 +36,18 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.modal
-    overflow-x: hidden
-    overflow-y: hidden
+.inner
+    z-index: 999
+    background: #FFFFFF
+    padding: 20px
+    border-radius: 10px
     position: absolute
-    top: 0
-    left: 0
-    min-height: 100%
-    width: 100%
-    background: #F1F6FA
-    &__inner
-        z-index: 999
-        background: #FFFFFF
-        padding: 20px
-        border-radius: 10px
-        position: absolute
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+.image-size
+    width: 20vw
+    max-width: 450px
+    height: 20vh
+    max-height: 600px
 </style>

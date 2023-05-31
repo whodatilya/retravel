@@ -55,8 +55,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-$primary-color: #0069C0
-$primary-color-dark: #6EC6FF
+$primary-color: #5fb760
+$primary-color-dark: #428442
 $text-color: #333
 $font-size: 1.2rem
 $font-weight-normal: 500

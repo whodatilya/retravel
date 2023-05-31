@@ -27,10 +27,12 @@
           </div>
       </div>
       <div class="content">
-          <component
-            class="content__inner"
-            :is="selectedPage + 'Component'"
-          />
+          <keep-alive>
+              <component
+                  class="content__inner"
+                  :is="selectedPage + 'Component'"
+              />
+          </keep-alive>
       </div>
       <div class="preferences">
           <div class="row" style="align-items: center">

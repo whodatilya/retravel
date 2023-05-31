@@ -7,7 +7,7 @@
           <input v-model="title" class="create-item item-input" placeholder="Заголовок">
           <textarea v-model="text" class="create-item item-input textarea-size" placeholder="Текст..."/>
           <div class="create-item row justify-between">
-            <input v-model="place" class="column create-item item-input item-input_half" placeholder="Местоположение">
+            <input v-model="place" class="column create-item item-insput item-input_half" placeholder="Местоположение">
             <input ref="myFiles" id="uploadFile" type="file" @change=processFile class="column create-item item-input_half">
           </div>
           <div class="flex justify-end">
@@ -17,17 +17,13 @@
       </div>
       <div class="publications__local">
         <div class="text-my-bold publications__local-text-position">Мои публикации</div>
-        <div v-for="(item, index) in publicationsList" :key="index" class="content__item row items-center" @click="openModal">
-            <div v-if="isOpen">
-                <modal-publication :item="item" @onExitClick="openModal"/>
-            </div>
-          <div class="content__image flex wrap justify-center" style="">
-            <img style="max-width: 50px; max-height: 50px" :src="item.file_path || iconLandscape" alt="">
-          </div>
-          <div class="column" style="padding-left: 10px">
-            <div class="text-my-bold">{{ item.header }}</div>
-            <div class="text-my-lightgray">{{ item.location }}</div>
-          </div>
+        <div v-for="(item, index) in publicationsList" :key="index" class="content__item">
+            <publicationItem
+              :file-path="item.file_path"
+              :title="item.text"
+              :location="item.location"
+              :publication="item"
+            />
         </div>
       </div>
     </div>
@@ -37,20 +33,21 @@
 import ComponentHeader from "@/components/ComponentHeader.vue";
 import iconLandscape from '@/assets/images/iconLandscape.svg'
 import {getAllPosts} from "@/store/posts/actions";
-import ModalPublication from "@/components/ModalPublication.vue";
+import ModalPublication from '@/components/ModalPublication.vue';
+import publicationItem from '@/components/PublicationItem.vue';
 
 export default {
   name: "PublicationsComponent",
   components: {
       ModalPublication,
-    ComponentHeader
+    ComponentHeader,
+      publicationItem
   },
   data () {
     return {
       iconLandscape,
       title: '',
       text: '',
-      isOpen: false,
       place: '',
       images: '',
       files: [],
@@ -61,9 +58,6 @@ export default {
         this.processPublications()
     },
     methods: {
-      openModal () {
-        this.isOpen = !this.isOpen
-      },
       async processPublications() {
           this.publicationsList = await this.$store.dispatch('posts/getAllPosts')
       },
@@ -141,9 +135,4 @@ export default {
     margin-bottom: 25px
     &:hover
       cursor: pointer
-  &__image
-    width: 50px
-    height: 50px
-    border-radius: 10px
-    background: #EDEDED
 </style>
