@@ -4,11 +4,25 @@
       <div class="publications__create">
         <div class="text-my-bold publications__create-text-position">Создать новую публикацию</div>
         <div class="flex column">
-          <input v-model="title" class="create-item item-input" placeholder="Заголовок">
-          <textarea v-model="text" class="create-item item-input textarea-size" placeholder="Текст..."/>
+            <div>
+                Заголовок
+            </div>
+          <input v-model="title" class="create-item item-input" style="padding: 10px">
+            <div>
+                Описание
+            </div>
+          <textarea v-model="text" class="create-item item-input textarea-size"/>
           <div class="create-item row justify-between">
-            <input v-model="place" class="column create-item item-insput item-input_half" placeholder="Местоположение">
-            <input ref="myFiles" id="uploadFile" type="file" @change=processFile class="column create-item item-input_half">
+              <div class="column" style="width: 42%">
+                  <div>
+                      Местоположение
+                  </div>
+                  <input v-model="place" class="column create-item item-input item-input_half" style="padding: 10px">
+              </div>
+              <div class="column justify-center" style="width: 42%">
+                  <div>Загрузите файлы</div>
+                  <input ref="myFiles" id="uploadFile" type="file" @change=processFile class="column create-item item-input_half">
+              </div>
           </div>
           <div class="flex justify-end">
             <button @click="createNewPublication" class="create-item item-button">Опубликовать</button>
@@ -20,6 +34,7 @@
         <div v-for="(item, index) in publicationsList" :key="index" class="content__item">
             <publicationItem
               :file-path="item.file_path"
+              :header="item.header"
               :title="item.text"
               :location="item.location"
               :publication="item"
@@ -114,7 +129,7 @@ export default {
     border: none
     background: #EDEDED
     &_half
-      width: 40%
+      width: 100%
   &-button
     width: fit-content
     padding: 8px 10px

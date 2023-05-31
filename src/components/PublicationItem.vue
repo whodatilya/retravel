@@ -4,7 +4,8 @@
             <img class="svg-size" :src="filePath || iconLandscape" alt="">
         </div>
         <div class="column" style="padding-left: 10px">
-            <div class="text-my-bold">{{ title }}</div>
+            <div class="text-my-bold">{{ header }}</div>
+            <div class="text-my-lightgray">{{ title }}</div>
             <div class="text-my-lightgray">{{ location }}</div>
         </div>
     </div>
@@ -37,6 +38,9 @@ export default {
             type: String
         },
         location: {
+            type: String
+        },
+        header: {
             type: String
         },
     },
