@@ -2,22 +2,22 @@
     <div class="publications">
       <component-header/>
       <div class="publications__create">
-        <div class="text-my-bold publications__create-text-position">Создать новую публикацию</div>
+        <div class="publications__create-text-position text-my-bold">Создать новую публикацию</div>
         <div class="flex column">
             <div>
                 Заголовок
             </div>
-          <input v-model="title" class="create-item item-input" style="padding: 10px">
+          <input v-model="title" required class="create-item item-input" style="padding: 10px">
             <div>
                 Описание
             </div>
-          <textarea v-model="text" class="create-item item-input textarea-size"/>
+          <textarea v-model="text" required class="create-item item-input textarea-size"/>
           <div class="create-item row justify-between">
               <div class="column" style="width: 42%">
                   <div>
                       Местоположение
                   </div>
-                  <input v-model="place" class="column create-item item-input item-input_half" style="padding: 10px">
+                  <input v-model="place" required class="column create-item item-input item-input_half" style="padding: 10px">
               </div>
               <div class="column justify-center" style="width: 42%">
                   <div>Загрузите файлы</div>
@@ -25,13 +25,13 @@
               </div>
           </div>
           <div class="flex justify-end">
-            <button @click="createNewPublication" class="create-item item-button">Опубликовать</button>
+            <button @click="createNewPublication" class="create-item text-my-bold item-button">Опубликовать</button>
           </div>
         </div>
       </div>
       <div class="publications__local">
-        <div class="text-my-bold publications__local-text-position">Мои публикации</div>
-        <div v-for="(item, index) in publicationsList" :key="index" class="content__item">
+        <div class="publications__local-text-position text-my-bold">Мои публикации</div>
+        <div v-for="(item, index) in publicationsList" :key="index" class="publication__item">
             <publicationItem
               :file-path="item.file_path"
               :header="item.header"
@@ -82,19 +82,22 @@ export default {
     createNewPublication () {
         const formData = new FormData()
         const loadedFile = document.querySelector('#uploadFile')
+        if (this.title && this.text && this.place) {
+            // FormData, потому что загружаем фотографию
+            formData.append('header', this.title)
+            formData.append('text', this.text)
+            formData.append('location', this.place)
+            formData.append('image', loadedFile.files[0])
 
-        formData.append('header', this.title)
-        formData.append('text', this.text)
-        formData.append('location', this.place)
-        formData.append('image', loadedFile.files[0])
-
-        this.$store.dispatch('posts/createNewPost', {
-            postData: formData
-        })
-            .then(response => {
-                this.processPublications()
+            this.$store.dispatch('posts/createNewPost', {
+                postData: formData
             })
-
+                .then(response => {
+                    this.processPublications()
+                })
+        } else {
+            alert('Заполните все поля!')
+        }
       this.title = ''
       this.text = ''
       this.place = ''
@@ -132,7 +135,7 @@ export default {
       width: 100%
   &-button
     width: fit-content
-    padding: 8px 10px
+    padding: 10px 14px
     cursor: pointer
     border-radius: 10px
     background: $green
@@ -145,7 +148,7 @@ export default {
   max-height: 300px
   min-width: 100%
 
-.content
+.publication
   &__item
     margin-bottom: 25px
     &:hover

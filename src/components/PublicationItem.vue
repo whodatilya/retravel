@@ -73,5 +73,5 @@ export default {
     left: 0
     min-height: 100%
     width: 100%
-    background: #F1F6FA
+    background: #f6fbf8
 </style>
