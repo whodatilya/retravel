@@ -145,6 +145,7 @@ export default {
       background: #386938
 .textarea-size
   max-width: 100%
+  min-height: 50px
   max-height: 300px
   min-width: 100%
 
