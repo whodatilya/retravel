@@ -6,11 +6,24 @@
               <div class="form__subheader">Пожалуйста, войдите, чтобы продолжить работу</div>
               <div class="login__input-fields">
                   <div class="form__label" style="padding-bottom: 5px">Email</div>
-                  <input v-model="email" class="form__input" type="email" autocomplete="false" required>
+                  <input
+                      v-model="email"
+                      class="form__input"
+                      type="email"
+                      placeholder="you@company.com"
+                      autocomplete="false"
+                      required
+                  >
               </div>
               <div class="login__input-fields">
                   <div class="form__label" style="padding-bottom: 5px">Пароль</div>
-                  <input v-model="password" class="form__input" type="password" required>
+                  <input
+                      v-model="password"
+                      class="form__input"
+                      type="password"
+                      placeholder="********"
+                      required
+                  >
               </div>
               <div class="form__button">
                   <button @click="login" type="submit">Войти</button>
@@ -51,14 +64,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.login-page
-  background-image: url("@/assets/images/auth_background.svg")
-  background-size: cover
-  display: flex
-  justify-content: center
-  align-items: center
-  height: 100%
-
 .login
   &__wrapper
     display: flex

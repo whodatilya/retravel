@@ -1,23 +1,82 @@
 <template>
     <div class="login-page">
-        <div class="login-form">
-            <h2 class="login-form__title">Регистрация</h2>
-            <div class="login-form__field">
-                <label class="login-form__label" for="email">Email</label>
-                <input v-model="email" class="login-form__input" type="email" id="email" name="email" required>
-            </div>
-            <div class="login-form__field">
-                <label class="login-form__label" for="password">Пароль</label>
-                <input v-model="password" class="login-form__input" type="password" id="password" name="password" required>
-            </div>
-            <div class="login-form__field">
-                <label class="login-form__label" for="password">Повторите пароль</label>
-                <input v-model="repassword" class="login-form__input" type="password" id="repassword" name="password" required>
-            </div>
-            <button @click="register" class="login-form__submit-button" type="submit">Войти</button>
-            <div style="padding-top: 20px">
-              <span>
-                  Уже есть аккаунт? <a href="/login">Войти</a>
+        <div class="login__wrapper">
+            <div class="login__form">
+                <div class="form__header">Регистрация</div>
+                <div class="form__subheader">Пожалуйста, создайте аккаунт, чтобы продолжить работу</div>
+                <div class="login__input-fields_partly">
+                    <div>
+                        <div class="form__label" style="padding-bottom: 5px">Имя</div>
+                        <input
+                            v-model="firstName"
+                            class="form__input"
+                            type="text" placeholder="Имя"
+                            autocomplete="false"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <div class="form__label" style="padding-bottom: 5px">Фамилия</div>
+                        <input
+                            v-model="secondName"
+                            class="form__input"
+                            type="text"
+                            placeholder="Фамилия"
+                            autocomplete="false"
+                            required
+                        >
+                    </div>
+                </div>
+                <div class="login__input-fields">
+                    <div class="form__label" style="padding-bottom: 5px">Email</div>
+                    <input
+                        v-model="email"
+                        class="form__input"
+                        type="email"
+                        placeholder="you@company.com"
+                        autocomplete="false"
+                        required
+                    >
+                </div>
+                <div class="login__input-fields">
+                    <div class="form__label" style="padding-bottom: 5px">Номер телефона</div>
+                    <input
+                        v-model="phoneNumber"
+                        v-mask="'+ # (###) ### ## ##'"
+                        placeholder="+ 7 (900) 000-00-00"
+                        class="form__input"
+                        type="text"
+                        autocomplete="false"
+                        required
+                    >
+                </div>
+                <div class="login__input-fields">
+                    <div class="form__label" style="padding-bottom: 5px">Пароль</div>
+                    <input v-model="password" class="form__input" type="password" placeholder="********" required>
+                </div>
+                <div class="login__input-fields">
+                    <div class="form__label" style="padding-bottom: 5px">Повторите пароль</div>
+                    <input v-model="repassword" class="form__input" type="password" placeholder="********" required>
+                </div>
+                <div class="checkboxes">
+                    <div class="checkbox">
+                        <input type="checkbox" v-model="checked_policy" required style="margin-right: 5px">
+                        <div>
+                            Принимаю условия <a href="#">политики конфиденциальности.</a>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" v-model="checked_guide" style="margin-right: 5px">
+                        <div>
+                            Я гид (необходим <a href="#">аттестат экскурсовода</a>)
+                        </div>
+                    </div>
+                </div>
+                <div class="form__button">
+                    <button @click="register" type="submit">Создать аккаунт</button>
+                </div>
+                <span class="form__subheader">
+                  Есть аккаунт? <a class="form__subheader_link" href="/login">Войти</a>
               </span>
             </div>
         </div>
@@ -25,21 +84,33 @@
 </template>
 
 <script>
+import { mask } from 'vue-the-mask'
 export default {
     name: "Register",
+    directives: {
+        mask
+    },
     data () {
         return {
+            firstName: '',
+            secondName: '',
             email: '',
+            phoneNumber: '',
             password: '',
-            repassword: ''
+            repassword: '',
+            checked_policy: false,
+            checked_guide: false
         }
     },
     methods: {
         async register() {
-            if (this.password === this.repassword) {
+            if (this.password.length && this.password === this.repassword && this.checked_policy) {
                 await this.$store.dispatch('user/register', {
+                    firstname: this.firstName,
+                    secondname: this.secondName,
                     login: this.email,
-                    password: this.password
+                    phone_number: this.phoneNumber,
+                    password: this.password,
                 })
                     .then(response => {
                         console.log('response', response)
@@ -48,6 +119,8 @@ export default {
                     .catch(e => {
                         alert(`Не получается зарегистрироваться из-за ошибки - ${e}`)
                     })
+            } else {
+                alert('Пароли не совпадают или не приняты условия политики конфиденциальности')
             }
         }
     }
@@ -55,60 +128,49 @@ export default {
 </script>
 
 <style scoped lang="sass">
-$primary-color: #5fb760
-$primary-color-dark: #428442
-$text-color: #333
-$font-size: 1.2rem
-$font-weight-normal: 500
-$font-weight-bold: 600
-$border-color: #ccc
-$border-radius: 0.5rem
-
-.login-page
-    display: flex
-    background: #EEFFFF
-    justify-content: center
-    align-items: center
-    height: 100vh
-
-.login-form
-    display: flex
-    flex-direction: column
-    align-items: center
-    padding: 2rem
-    border: 1px solid transparent
-    border-radius: $border-radius
-    &__title
-        margin-bottom: 1.5rem
-        font-size: 2rem
-        font-weight: 700
-    &__field
+.login
+    &__wrapper
+        display: flex
+        border-radius: 40px
+        background: rgba(255, 255, 255, 0.70)
+        box-shadow: 0 0 22px 3px rgba(137, 137, 137, 0.25)
+        width: 75%
+        padding: 20px 0
+        align-items: center
+        justify-content: center
+    &__form
         display: flex
         flex-direction: column
-        margin-bottom: 1.5rem
-    &__label
-        margin-bottom: 0.5rem
-        font-size: $font-size
-        font-weight: $font-weight-bold
-    &__input
-        padding: 0.5rem
-        border: none
-        border-radius: 10px
-        border-bottom: 1px solid $border-color
-        font-size: $font-size
-        font-weight: $font-weight-normal
-    &__submit-button
-        padding: 0.5rem 1rem
-        border: none
-        border-radius: $border-radius
-        background-color: $primary-color
-        color: #fff
-        font-size: $font-size
-        font-weight: $font-weight-bold
-        cursor: pointer
-        transition: all 0.2s ease-in-out
-    &:hover
-        background-color: $primary-color-dark
-        transition: all 0.4s ease-in-out
-        color: white
+        gap: 6px
+        align-items: center
+    &__input-fields
+        display: flex
+        flex-wrap: wrap
+        flex-direction: column
+        width: 100%
+        &_partly
+            display: flex
+            flex-wrap: wrap
+            flex-direction: row
+            flex-basis: 50%
+            width: fill-available
+            justify-content: space-between
+.checkboxes
+    display: flex
+    width: 100%
+    flex-wrap: wrap
+    flex-direction: column
+    .checkbox
+        display: flex
+        align-items: center
+        color: #7D7D7D
+        font-family: Inter, sans-serif
+        font-size: 14px
+        font-style: normal
+        font-weight: 500
+        line-height: 24px
+        a
+            text-decoration: none
+            color: #7D7D7D
+            font-weight: 700
 </style>
