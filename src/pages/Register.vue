@@ -150,7 +150,7 @@ export default {
     &__form
         display: flex
         flex-direction: column
-        gap: 6px
+        gap: 16px
         align-items: center
         @media (max-width: 576px)
           gap: 3px
