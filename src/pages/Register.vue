@@ -135,6 +135,7 @@ export default {
         background: rgba(255, 255, 255, 0.70)
         box-shadow: 0 0 22px 3px rgba(137, 137, 137, 0.25)
         width: 75%
+        height: 85%
         padding: 20px 0
         align-items: center
         justify-content: center
@@ -143,6 +144,9 @@ export default {
           width: 95%
           height: fit-content
           padding: 5px 0
+        @media (min-width: 576px) and (max-width: 765.98px)
+          transition: all 0.3s ease-out
+          width: 85%
     &__form
         display: flex
         flex-direction: column
