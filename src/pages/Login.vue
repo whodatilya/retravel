@@ -70,10 +70,14 @@ export default {
     border-radius: 40px
     background: rgba(255, 255, 255, 0.70)
     box-shadow: 0 0 22px 3px rgba(137, 137, 137, 0.25)
-    width: 65%
+    width: 70%
     align-items: center
     justify-content: center
     height: 80%
+    @media (max-width: 576px)
+      transition: all 0.3s ease-out
+      width: 95%
+      height: 65%
   &__form
     display: flex
     flex-direction: column
@@ -84,5 +88,7 @@ export default {
     flex-wrap: wrap
     flex-direction: column
     width: 100%
-
+    @media (max-width: 576px)
+      transition: all 0.3s ease-out
+      width: 100%
 </style>

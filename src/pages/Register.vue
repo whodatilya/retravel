@@ -5,21 +5,21 @@
                 <div class="form__header">Регистрация</div>
                 <div class="form__subheader">Пожалуйста, создайте аккаунт, чтобы продолжить работу</div>
                 <div class="login__input-fields_partly">
-                    <div>
+                    <div class="field_container">
                         <div class="form__label" style="padding-bottom: 5px">Имя</div>
                         <input
                             v-model="firstName"
-                            class="form__input"
+                            class="form__input input-width-fix"
                             type="text" placeholder="Имя"
                             autocomplete="false"
                             required
                         >
                     </div>
-                    <div>
+                    <div class="field_container">
                         <div class="form__label" style="padding-bottom: 5px">Фамилия</div>
                         <input
                             v-model="secondName"
-                            class="form__input"
+                            class="form__input input-width-fix"
                             type="text"
                             placeholder="Фамилия"
                             autocomplete="false"
@@ -138,11 +138,18 @@ export default {
         padding: 20px 0
         align-items: center
         justify-content: center
+        @media (max-width: 576px)
+          transition: all 0.3s ease-out
+          width: 95%
+          height: fit-content
+          padding: 5px 0
     &__form
         display: flex
         flex-direction: column
         gap: 6px
         align-items: center
+        @media (max-width: 576px)
+          gap: 3px
     &__input-fields
         display: flex
         flex-wrap: wrap
@@ -155,6 +162,8 @@ export default {
             flex-basis: 50%
             width: fill-available
             justify-content: space-between
+            @media (max-width: 576px)
+              flex-direction: column
 .checkboxes
     display: flex
     width: 100%
@@ -169,8 +178,16 @@ export default {
         font-style: normal
         font-weight: 500
         line-height: 24px
+        @media (max-width: 576px)
+          font-size: 9px
         a
             text-decoration: none
             color: #7D7D7D
             font-weight: 700
+.field_container
+  @media (max-width: 576px)
+    width: 100%
+.input-width-fix
+  @media (max-width: 576px)
+    width: fill-available
 </style>
