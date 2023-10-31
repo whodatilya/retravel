@@ -62,13 +62,13 @@
                     <div class="checkbox">
                         <input type="checkbox" v-model="checked_policy" required style="margin-right: 5px">
                         <div>
-                            Принимаю условия <a href="#">политики конфиденциальности.</a>
+                            Принимаю условия <a href="https://retravel.tech/privacy">политики конфиденциальности.</a>
                         </div>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" v-model="checked_guide" style="margin-right: 5px">
                         <div>
-                            Я гид (необходим <a href="#">аттестат экскурсовода</a>)
+                            Я гид (необходим <a href="https://www.gosuslugi.ru/543222/2/info">аттестат экскурсовода</a>)
                         </div>
                     </div>
                 </div>
